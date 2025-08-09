@@ -66,6 +66,10 @@ function App() {
     }
   };
 
+  // Handle spot reordering
+  const handleReorderSpots = (reorderedSpots: DateSpot[]) => {
+    setSelectedSpots(reorderedSpots);
+  };
   // Clear distance filter
   const handleClearFilter = () => {
     setFilterFromLocation(null);
@@ -231,6 +235,7 @@ function App() {
               <DatePlan
                 selectedSpots={selectedSpots}
                 onRemove={handleRemoveSpot}
+                onReorder={handleReorderSpots}
                 activeTemplate={activeTemplate}
                 templateProgress={activeTemplate ? selectedSpots.length / activeTemplate.categories.length : 0}
               />

@@ -6,11 +6,56 @@ import { getDistance } from '../data/mockData';
 interface DatePlanProps {
   selectedSpots: DateSpot[];
   onRemove: (id: string) => void;
+  onReorder: (spots: DateSpot[]) => void;
   activeTemplate?: DateTemplate | null;
   templateProgress: number;
 }
 
-export const DatePlan: React.FC<DatePlanProps> = ({ selectedSpots, onRemove, activeTemplate, templateProgress }) => {
+export const DatePlan: React.FC<DatePlanProps> = ({ selectedSpots, onRemove, onReorder, activeTemplate, templateProgress }) => {
+  const [draggedIndex, setDraggedIndex] = React.useState<number | null>(null);
+  const [dragOverIndex, setDragOverIndex] = React.useState<number | null>(null);
+
+  const handleDragStart = (e: React.DragEvent, index: number) => {
+    setDraggedIndex(index);
+    e.dataTransfer.effectAllowed = 'move';
+    e.dataTransfer.setData('text/html', e.currentTarget.outerHTML);
+    if (e.currentTarget instanceof HTMLElement) {
+      e.currentTarget.style.opacity = '0.5';
+    }
+  };
+
+  const handleDragEnd = (e: React.DragEvent) => {
+    setDraggedIndex(null);
+    setDragOverIndex(null);
+    if (e.currentTarget instanceof HTMLElement) {
+      e.currentTarget.style.opacity = '1';
+    }
+  };
+
+  const handleDragOver = (e: React.DragEvent, index: number) => {
+    e.preventDefault();
+    e.dataTransfer.dropEffect = 'move';
+    setDragOverIndex(index);
+  };
+
+  const handleDragLeave = () => {
+    setDragOverIndex(null);
+  };
+
+  const handleDrop = (e: React.DragEvent, dropIndex: number) => {
+    e.preventDefault();
+    setDragOverIndex(null);
+    
+    if (draggedIndex === null || draggedIndex === dropIndex) return;
+    
+    const reorderedSpots = [...selectedSpots];
+    const [draggedSpot] = reorderedSpots.splice(draggedIndex, 1);
+    reorderedSpots.splice(dropIndex, 0, draggedSpot);
+    
+    onReorder(reorderedSpots);
+    setDraggedIndex(null);
+  };
+
   const getTravelTime = (distanceInMiles: number) => {
     // Walking time: average 3 mph
     const walkingTimeMinutes = Math.round((distanceInMiles / 3) * 60);
@@ -128,7 +173,21 @@ export const DatePlan: React.FC<DatePlanProps> = ({ selectedSpots, onRemove, act
       <div className="space-y-4">
         {selectedSpots.map((spot, index) => (
           <React.Fragment key={spot.id}>
-            <div className="flex items-center p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors group">
+            <div 
+              draggable
+              onDragStart={(e) => handleDragStart(e, index)}
+              onDragEnd={handleDragEnd}
+              onDragOver={(e) => handleDragOver(e, index)}
+              onDragLeave={handleDragLeave}
+              onDrop={(e) => handleDrop(e, index)}
+              className={`flex items-center p-4 rounded-lg transition-all duration-200 group cursor-move ${
+                draggedIndex === index 
+                  ? 'bg-blue-100 border-2 border-blue-300' 
+                  : dragOverIndex === index 
+                    ? 'bg-blue-50 border-2 border-blue-200 border-dashed'
+                    : 'bg-gray-50 hover:bg-gray-100'
+              }`}
+            >
               <div className="flex-shrink-0 w-8 h-8 bg-blue-500 text-white rounded-full flex items-center justify-center text-sm font-medium mr-4">
                 {index + 1}
               </div>
@@ -156,6 +215,11 @@ export const DatePlan: React.FC<DatePlanProps> = ({ selectedSpots, onRemove, act
               </div>
               
               <div className="flex-shrink-0 flex items-center">
+                <div className="flex items-center mr-2 opacity-40 group-hover:opacity-100 transition-opacity">
+                  <div className="w-1 h-4 bg-gray-400 rounded-full mr-0.5"></div>
+                  <div className="w-1 h-4 bg-gray-400 rounded-full mr-0.5"></div>
+                  <div className="w-1 h-4 bg-gray-400 rounded-full"></div>
+                </div>
                 <button
                   onClick={() => onRemove(spot.id)}
                   className="w-6 h-6 text-gray-400 hover:text-red-500 transition-colors opacity-0 group-hover:opacity-100"
