@@ -11,25 +11,18 @@ function App() {
   const [selectedSpots, setSelectedSpots] = useState<DateSpot[]>([]);
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [sortBy, setSortBy] = useState('rating');
-  const [filterFromLocation, setFilterFromLocation] = useState<string | null>(null);
+  const [selectedLocation, setSelectedLocation] = useState<string | null>(null);
   const [isTemplateModalOpen, setIsTemplateModalOpen] = useState(false);
   const [activeTemplate, setActiveTemplate] = useState<DateTemplate | null>(null);
   const [currentTemplateStep, setCurrentTemplateStep] = useState(0);
 
   const categories = ['all', 'restaurant', 'activity', 'bar', 'entertainment'];
 
-  // Get the most recent location for distance filtering
-  const mostRecentLocation = selectedSpots.length > 0 
-    ? selectedSpots[selectedSpots.length - 1].neighborhood 
-    : null;
-
   // Handle spot selection
   const handleSpotSelect = (spot: DateSpot) => {
     setSelectedSpots(prev => {
       const isAlreadySelected = prev.some(s => s.id === spot.id);
       if (isAlreadySelected) {
-        // If clicking on an already selected spot, use it for distance filtering
-        setFilterFromLocation(spot.neighborhood);
         return prev;
       } else {
         const newSelection = [...prev, spot];
@@ -70,9 +63,14 @@ function App() {
   const handleReorderSpots = (reorderedSpots: DateSpot[]) => {
     setSelectedSpots(reorderedSpots);
   };
-  // Clear distance filter
-  const handleClearFilter = () => {
-    setFilterFromLocation(null);
+  // Handle location selection
+  const handleLocationSelect = (location: string) => {
+    setSelectedLocation(location);
+  };
+
+  // Clear location filter
+  const handleLocationClear = () => {
+    setSelectedLocation(null);
   };
 
   // Handle template selection
@@ -108,10 +106,15 @@ function App() {
     }
 
     // Calculate distances if filtering by location
-    const spotsWithDistance = filtered.map(spot => ({
+    let spotsWithDistance = filtered.map(spot => ({
       ...spot,
-      distance: filterFromLocation ? getDistance(filterFromLocation, spot.neighborhood) : 0
+      distance: selectedLocation ? getDistance(selectedLocation, spot.neighborhood) : 0
     }));
+
+    // If location filter is active, sort by distance first
+    if (selectedLocation && sortBy !== 'distance') {
+      spotsWithDistance = spotsWithDistance.filter(spot => spot.distance < 20); // Only show spots within 20 miles
+    }
 
     // Sort
     spotsWithDistance.sort((a, b) => {
@@ -167,9 +170,9 @@ function App() {
               onCategoryChange={setSelectedCategory}
               sortBy={sortBy}
               onSortChange={setSortBy}
-              isFiltering={!!filterFromLocation}
-              filterLocation={filterFromLocation || undefined}
-              onClearFilter={handleClearFilter}
+              selectedLocation={selectedLocation}
+              onLocationSelect={handleLocationSelect}
+              onLocationClear={handleLocationClear}
               templateMode={!!activeTemplate}
             />
 
@@ -181,7 +184,7 @@ function App() {
                   dateSpot={spot}
                   isSelected={selectedSpots.some(s => s.id === spot.id)}
                   onSelect={handleSpotSelect}
-                  distance={filterFromLocation ? spot.distance : undefined}
+                  distance={selectedLocation ? spot.distance : undefined}
                 />
               ))}
             </div>

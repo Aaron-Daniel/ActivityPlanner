@@ -1,6 +1,7 @@
 import React from 'react';
-import { Filter, MapPin } from 'lucide-react';
+import { Filter } from 'lucide-react';
 import { DateSpot } from '../types';
+import { LocationFilter } from './LocationFilter';
 
 interface FilterBarProps {
   categories: string[];
@@ -8,9 +9,9 @@ interface FilterBarProps {
   onCategoryChange: (category: string) => void;
   sortBy: string;
   onSortChange: (sort: string) => void;
-  isFiltering: boolean;
-  filterLocation?: string;
-  onClearFilter: () => void;
+  selectedLocation?: string | null;
+  onLocationSelect: (location: string) => void;
+  onLocationClear: () => void;
   templateMode?: boolean;
 }
 
@@ -28,9 +29,9 @@ export const FilterBar: React.FC<FilterBarProps> = ({
   onCategoryChange,
   sortBy,
   onSortChange,
-  isFiltering,
-  filterLocation,
-  onClearFilter,
+  selectedLocation,
+  onLocationSelect,
+  onLocationClear,
   templateMode = false
 }) => {
   return (
@@ -65,29 +66,22 @@ export const FilterBar: React.FC<FilterBarProps> = ({
         <select
           value={sortBy}
           onChange={(e) => onSortChange(e.target.value)}
-          className="border border-gray-300 rounded-lg px-3 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          className="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
         >
           <option value="rating">Sort by Rating</option>
           <option value="price-low">Price: Low to High</option>
           <option value="price-high">Price: High to Low</option>
-          {isFiltering && <option value="distance">Distance</option>}
+          {selectedLocation && <option value="distance">Distance</option>}
         </select>
 
-        {/* Distance Filter Indicator */}
-        {isFiltering && filterLocation && (
-          <div className="flex items-center bg-blue-50 px-3 py-1 rounded-lg">
-            <MapPin className="w-4 h-4 text-blue-600 mr-1" />
-            <span className="text-sm text-blue-700">
-              Near {filterLocation}
-            </span>
-            <button
-              onClick={onClearFilter}
-              className="ml-2 text-blue-600 hover:text-blue-800 text-xs"
-            >
-              Clear
-            </button>
-          </div>
-        )}
+        <div className="w-px h-6 bg-gray-300" />
+        
+        {/* Location Filter */}
+        <LocationFilter
+          onLocationSelect={onLocationSelect}
+          selectedLocation={selectedLocation}
+          onClear={onLocationClear}
+        />
       </div>
     </div>
   );
