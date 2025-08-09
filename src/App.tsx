@@ -144,7 +144,7 @@ function App() {
           </div>
           
           {/* Template Progress */}
-          {activeTemplate && (
+          {activeTemplate && selectedSpots.length < activeTemplate.categories.length && (
             <div className="mt-4 p-4 bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg border border-blue-200">
               <div className="flex items-center justify-between">
                 <div>
@@ -155,7 +155,7 @@ function App() {
                     </h3>
                   </div>
                   <p className="text-sm text-gray-600 mt-1">
-                    Step {currentTemplateStep + 1} of {activeTemplate.categories.length}: 
+                    Step {selectedSpots.length + 1} of {activeTemplate.categories.length}: 
                     Select a <span className="font-medium text-blue-700">
                       {selectedCategory === 'restaurant' ? 'dining' : 
                        selectedCategory === 'activity' ? 'activity' :
@@ -175,7 +175,7 @@ function App() {
               <div className="mt-3 w-full bg-gray-200 rounded-full h-2">
                 <div 
                   className="bg-gradient-to-r from-blue-500 to-purple-500 h-2 rounded-full transition-all duration-300"
-                  style={{ width: `${((currentTemplateStep + 1) / activeTemplate.categories.length) * 100}%` }}
+                  style={{ width: `${(selectedSpots.length / activeTemplate.categories.length) * 100}%` }}
                 />
               </div>
             </div>
@@ -231,6 +231,8 @@ function App() {
               <DatePlan
                 selectedSpots={selectedSpots}
                 onRemove={handleRemoveSpot}
+                activeTemplate={activeTemplate}
+                templateProgress={activeTemplate ? selectedSpots.length / activeTemplate.categories.length : 0}
               />
             </div>
           </div>

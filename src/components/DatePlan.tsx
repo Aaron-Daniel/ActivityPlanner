@@ -1,14 +1,16 @@
 import React from 'react';
-import { DateSpot } from '../types';
+import { DateSpot, DateTemplate } from '../types';
 import { Calendar, Clock, MapPin, X, Car, Navigation } from 'lucide-react';
 import { getDistance } from '../data/mockData';
 
 interface DatePlanProps {
   selectedSpots: DateSpot[];
   onRemove: (id: string) => void;
+  activeTemplate?: DateTemplate | null;
+  templateProgress: number;
 }
 
-export const DatePlan: React.FC<DatePlanProps> = ({ selectedSpots, onRemove }) => {
+export const DatePlan: React.FC<DatePlanProps> = ({ selectedSpots, onRemove, activeTemplate, templateProgress }) => {</parameter>
   const getTravelTime = (distanceInMiles: number) => {
     // Walking time: average 3 mph
     const walkingTimeMinutes = Math.round((distanceInMiles / 3) * 60);
@@ -52,16 +54,69 @@ export const DatePlan: React.FC<DatePlanProps> = ({ selectedSpots, onRemove }) =
     return (
       <div className="bg-gray-50 rounded-xl p-8 text-center">
         <Calendar className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-        <h3 className="text-lg font-medium text-gray-900 mb-2">No Plans Yet</h3>
+        <h3 className="text-lg font-medium text-gray-900 mb-2">
+          {activeTemplate ? 'Template Selected' : 'No Plans Yet'}
+        </h3>
         <p className="text-gray-600">
-          Start selecting date spots to build your perfect multi-part date!
+          {activeTemplate 
+            ? `Following the ${activeTemplate.name} template. Start selecting spots!`
+            : 'Start selecting date spots to build your perfect multi-part date!'
+          }
         </p>
+        {activeTemplate && (
+          <div className="mt-4 p-3 bg-white rounded-lg border border-gray-200">
+            <div className="flex items-center justify-center mb-2">
+              <span className="text-2xl mr-2">{activeTemplate.icon}</span>
+              <span className="font-medium text-gray-900">{activeTemplate.name}</span>
+            </div>
+            <div className="w-full bg-gray-200 rounded-full h-2">
+              <div 
+                className="bg-gradient-to-r from-blue-500 to-purple-500 h-2 rounded-full transition-all duration-300"
+                style={{ width: `${templateProgress * 100}%` }}
+              />
+            </div>
+            <p className="text-xs text-gray-500 mt-2">
+              {Math.round(templateProgress * 100)}% complete
+            </p>
+          </div>
+        )}
       </div>
     );
   }
 
   return (
     <div className="bg-white rounded-xl shadow-lg p-6">
+      {/* Template Header */}
+      {activeTemplate && (
+        <div className="mb-4 p-4 bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg border border-blue-200">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center">
+              <span className="text-xl mr-2">{activeTemplate.icon}</span>
+              <div>
+                <h3 className="font-semibold text-gray-900">{activeTemplate.name}</h3>
+                <p className="text-xs text-gray-600">{activeTemplate.description}</p>
+              </div>
+            </div>
+            <div className="text-right">
+              <div className="text-sm font-medium text-blue-700">
+                {Math.round(templateProgress * 100)}% Complete
+              </div>
+              {templateProgress < 1 && (
+                <div className="w-16 bg-gray-200 rounded-full h-1.5 mt-1">
+                  <div 
+                    className="bg-gradient-to-r from-blue-500 to-purple-500 h-1.5 rounded-full transition-all duration-300"
+                    style={{ width: `${templateProgress * 100}%` }}
+                  />
+                </div>
+              )}
+              {templateProgress === 1 && (
+                <div className="text-xs text-green-600 font-medium">✓ Complete</div>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+      
       <div className="flex items-center justify-between mb-6">
         <h2 className="text-2xl font-bold text-gray-900">Your Date Plan</h2>
         <div className="flex items-center text-sm text-gray-500">
