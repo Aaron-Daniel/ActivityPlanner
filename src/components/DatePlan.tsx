@@ -26,6 +26,7 @@ const categoryLabels = {
   entertainment: 'Entertainment'
 };
 export const DatePlan: React.FC<DatePlanProps> = ({ selectedSpots, onRemove, onReorder, activeTemplate, templateProgress }) => {
+export const DatePlan: React.FC<DatePlanProps> = ({ selectedSpots, onRemove, onReorder, activeTemplate, templateProgress, onCloseTemplate }) => {
   const [draggedIndex, setDraggedIndex] = React.useState<number | null>(null);
   const [dragOverIndex, setDragOverIndex] = React.useState<number | null>(null);
 
