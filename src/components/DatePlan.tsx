@@ -165,21 +165,20 @@ export const DatePlan: React.FC<DatePlanProps> = ({ selectedSpots, onRemove, onR
         <div className="mb-4 p-4 bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg border border-blue-200 relative">
           <div className="flex items-center justify-between">
             <div className="flex items-center">
+              <button
+                onClick={onCloseTemplate}
+                className="p-1 hover:bg-white hover:bg-opacity-50 rounded-full transition-colors group mr-3"
+                title="Close template"
+              >
+                <X className="w-4 h-4 text-gray-500 hover:text-gray-700" />
+              </button>
               <span className="text-xl mr-2">{activeTemplate.icon}</span>
               <div>
                 <h3 className="font-semibold text-gray-900">{activeTemplate.name}</h3>
                 <p className="text-xs text-gray-600">{activeTemplate.description}</p>
               </div>
             </div>
-            <div className="flex items-center space-x-3">
-              <button
-                onClick={onCloseTemplate}
-                className="p-1 hover:bg-white hover:bg-opacity-50 rounded-full transition-colors group"
-                title="Close template"
-              >
-                <X className="w-4 h-4 text-gray-500 hover:text-gray-700" />
-              </button>
-              <div className="text-right">
+            <div className="text-right">
               {templateProgress < 1 && (
                 <>
                   <div className="text-sm font-medium text-blue-700">
@@ -196,7 +195,6 @@ export const DatePlan: React.FC<DatePlanProps> = ({ selectedSpots, onRemove, onR
               {templateProgress === 1 && (
                 <div className="text-sm text-green-600 font-medium">✓ Complete</div>
               )}
-              </div>
             </div>
           </div>
         </div>
