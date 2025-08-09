@@ -91,6 +91,13 @@ function App() {
     setSelectedCategory('all');
   };
 
+  // Clear template without affecting selected spots
+  const handleCloseTemplate = () => {
+    setActiveTemplate(null);
+    setCurrentTemplateStep(0);
+    setSelectedCategory('all');
+  };
+
   // Filter and sort spots
   const filteredAndSortedSpots = useMemo(() => {
     let filtered = [...dateSpots];
@@ -147,43 +154,6 @@ function App() {
             </div>
           </div>
           
-          {/* Template Progress */}
-          {activeTemplate && selectedSpots.length < activeTemplate.categories.length && (
-            <div className="mt-4 p-4 bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg border border-blue-200">
-              <div className="flex items-center justify-between">
-                <div>
-                  <div className="flex items-center">
-                    <span className="text-2xl mr-2">{activeTemplate.icon}</span>
-                    <h3 className="text-lg font-semibold text-gray-900">
-                      {activeTemplate.name}
-                    </h3>
-                  </div>
-                  <p className="text-sm text-gray-600 mt-1">
-                    Step {selectedSpots.length + 1} of {activeTemplate.categories.length}: 
-                    Select a <span className="font-medium text-blue-700">
-                      {selectedCategory === 'restaurant' ? 'dining' : 
-                       selectedCategory === 'activity' ? 'activity' :
-                       selectedCategory === 'bar' ? 'nightlife' : 'entertainment'
-                    }</span> spot
-                  </p>
-                </div>
-                <button
-                  onClick={handleClearTemplate}
-                  className="text-sm text-gray-500 hover:text-gray-700 underline"
-                >
-                  Exit Template
-                </button>
-              </div>
-              
-              {/* Progress bar */}
-              <div className="mt-3 w-full bg-gray-200 rounded-full h-2">
-                <div 
-                  className="bg-gradient-to-r from-blue-500 to-purple-500 h-2 rounded-full transition-all duration-300"
-                  style={{ width: `${(selectedSpots.length / activeTemplate.categories.length) * 100}%` }}
-                />
-              </div>
-            </div>
-          )}
         </div>
       </header>
 
@@ -238,6 +208,7 @@ function App() {
                 onReorder={handleReorderSpots}
                 activeTemplate={activeTemplate}
                 templateProgress={activeTemplate ? selectedSpots.length / activeTemplate.categories.length : 0}
+                onCloseTemplate={handleCloseTemplate}
               />
             </div>
           </div>

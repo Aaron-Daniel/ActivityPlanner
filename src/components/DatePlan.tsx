@@ -9,6 +9,7 @@ interface DatePlanProps {
   onReorder: (spots: DateSpot[]) => void;
   activeTemplate?: DateTemplate | null;
   templateProgress: number;
+  onCloseTemplate?: () => void;
 }
 
 const categoryColors = {
