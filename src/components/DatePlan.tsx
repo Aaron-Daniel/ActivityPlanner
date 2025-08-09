@@ -11,6 +11,19 @@ interface DatePlanProps {
   templateProgress: number;
 }
 
+const categoryColors = {
+  restaurant: 'bg-emerald-100 text-emerald-700 border-emerald-200',
+  activity: 'bg-blue-100 text-blue-700 border-blue-200',
+  bar: 'bg-purple-100 text-purple-700 border-purple-200',
+  entertainment: 'bg-orange-100 text-orange-700 border-orange-200'
+};
+
+const categoryLabels = {
+  restaurant: 'Dining',
+  activity: 'Activity',
+  bar: 'Nightlife',
+  entertainment: 'Entertainment'
+};
 export const DatePlan: React.FC<DatePlanProps> = ({ selectedSpots, onRemove, onReorder, activeTemplate, templateProgress }) => {
   const [draggedIndex, setDraggedIndex] = React.useState<number | null>(null);
   const [dragOverIndex, setDragOverIndex] = React.useState<number | null>(null);
@@ -122,15 +135,21 @@ export const DatePlan: React.FC<DatePlanProps> = ({ selectedSpots, onRemove, onR
               <span className="text-2xl mr-2">{activeTemplate.icon}</span>
               <span className="font-medium text-gray-900">{activeTemplate.name}</span>
             </div>
-            <div className="w-full bg-gray-200 rounded-full h-2">
-              <div 
-                className="bg-gradient-to-r from-blue-500 to-purple-500 h-2 rounded-full transition-all duration-300"
-                style={{ width: `${templateProgress * 100}%` }}
-              />
-            </div>
-            <p className="text-xs text-gray-500 mt-2">
-              {Math.round(templateProgress * 100)}% complete
-            </p>
+            {templateProgress < 1 ? (
+              <>
+                <div className="w-full bg-gray-200 rounded-full h-2">
+                  <div 
+                    className="bg-gradient-to-r from-blue-500 to-purple-500 h-2 rounded-full transition-all duration-300"
+                    style={{ width: `${templateProgress * 100}%` }}
+                  />
+                </div>
+                <p className="text-xs text-gray-500 mt-2">
+                  {Math.round(templateProgress * 100)}% complete
+                </p>
+              </>
+            ) : (
+              <p className="text-sm text-green-600 font-medium">✓ Template Complete</p>
+            )}
           </div>
         )}
       </div>
@@ -151,19 +170,21 @@ export const DatePlan: React.FC<DatePlanProps> = ({ selectedSpots, onRemove, onR
               </div>
             </div>
             <div className="text-right">
-              <div className="text-sm font-medium text-blue-700">
-                {Math.round(templateProgress * 100)}% Complete
-              </div>
               {templateProgress < 1 && (
-                <div className="w-16 bg-gray-200 rounded-full h-1.5 mt-1">
-                  <div 
-                    className="bg-gradient-to-r from-blue-500 to-purple-500 h-1.5 rounded-full transition-all duration-300"
-                    style={{ width: `${templateProgress * 100}%` }}
-                  />
-                </div>
+                <>
+                  <div className="text-sm font-medium text-blue-700">
+                    {Math.round(templateProgress * 100)}% Complete
+                  </div>
+                  <div className="w-16 bg-gray-200 rounded-full h-1.5 mt-1">
+                    <div 
+                      className="bg-gradient-to-r from-blue-500 to-purple-500 h-1.5 rounded-full transition-all duration-300"
+                      style={{ width: `${templateProgress * 100}%` }}
+                    />
+                  </div>
+                </>
               )}
               {templateProgress === 1 && (
-                <div className="text-xs text-green-600 font-medium">✓ Complete</div>
+                <div className="text-sm text-green-600 font-medium">✓ Complete</div>
               )}
             </div>
           </div>
@@ -213,6 +234,11 @@ export const DatePlan: React.FC<DatePlanProps> = ({ selectedSpots, onRemove, onR
                 <h3 className="font-medium text-gray-900 truncate">
                   {spot.name}
                 </h3>
+                <div className="flex items-center mt-1 mb-2">
+                  <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium border ${categoryColors[spot.category]}`}>
+                    {categoryLabels[spot.category]}
+                  </span>
+                </div>
                 <div className="flex items-center text-sm text-gray-500 mt-1">
                   <MapPin className="w-3 h-3 mr-1" />
                   <span className="truncate">{spot.neighborhood}</span>
