@@ -10,7 +10,7 @@ interface DatePlanProps {
   templateProgress: number;
 }
 
-export const DatePlan: React.FC<DatePlanProps> = ({ selectedSpots, onRemove, activeTemplate, templateProgress }) => {</parameter>
+export const DatePlan: React.FC<DatePlanProps> = ({ selectedSpots, onRemove, activeTemplate, templateProgress }) => {
   const getTravelTime = (distanceInMiles: number) => {
     // Walking time: average 3 mph
     const walkingTimeMinutes = Math.round((distanceInMiles / 3) * 60);
