@@ -133,7 +133,7 @@ function App() {
     });
 
     return spotsWithDistance;
-  }, [selectedCategory, sortBy, filterFromLocation]);
+  }, [selectedCategory, sortBy, selectedLocation]);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
