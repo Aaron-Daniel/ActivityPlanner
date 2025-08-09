@@ -1,6 +1,6 @@
 import React from 'react';
 import { DateSpot, DateTemplate } from '../types';
-import { Calendar, Clock, MapPin, X, Car, Navigation } from 'lucide-react';
+import { Calendar, Clock, MapPin, Car, Navigation, X } from 'lucide-react';
 import { getDistance } from '../data/mockData';
 
 interface DatePlanProps {
