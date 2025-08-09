@@ -15,6 +15,7 @@ function App() {
   const [isTemplateModalOpen, setIsTemplateModalOpen] = useState(false);
   const [activeTemplate, setActiveTemplate] = useState<DateTemplate | null>(null);
   const [currentTemplateStep, setCurrentTemplateStep] = useState(0);
+  const [isGettingLocation, setIsGettingLocation] = useState(false);
 
   const categories = ['all', 'restaurant', 'activity', 'bar', 'entertainment'];
 
@@ -71,6 +72,39 @@ function App() {
   // Clear location filter
   const handleLocationClear = () => {
     setSelectedLocation(null);
+  };
+
+  // Handle current location
+  const handleCurrentLocation = () => {
+    if (!navigator.geolocation) {
+      alert('Geolocation is not supported by this browser.');
+      return;
+    }
+
+    setIsGettingLocation(true);
+    
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        setIsGettingLocation(false);
+        // For demo purposes, simulate finding nearest LA neighborhood
+        const laNeighborhoods = [
+          'Hollywood', 'West Hollywood', 'Beverly Hills', 'Santa Monica',
+          'Venice', 'Downtown LA', 'Brentwood', 'Marina del Rey'
+        ];
+        const nearestNeighborhood = laNeighborhoods[Math.floor(Math.random() * laNeighborhoods.length)];
+        setSelectedLocation(nearestNeighborhood);
+      },
+      (error) => {
+        setIsGettingLocation(false);
+        console.error('Error getting location:', error);
+        alert('Unable to get your location. Please enter it manually.');
+      },
+      {
+        enableHighAccuracy: true,
+        timeout: 10000,
+        maximumAge: 0
+      }
+    );
   };
 
   // Handle template selection
@@ -174,6 +208,7 @@ function App() {
               onLocationSelect={handleLocationSelect}
               onLocationClear={handleLocationClear}
               templateMode={!!activeTemplate}
+              onCurrentLocation={handleCurrentLocation}
             />
 
             {/* Spots Grid */}

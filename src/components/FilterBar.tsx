@@ -1,7 +1,6 @@
 import React from 'react';
-import { Filter } from 'lucide-react';
+import { Filter, Navigation, MapPin, X } from 'lucide-react';
 import { DateSpot } from '../types';
-import { LocationFilter } from './LocationFilter';
 
 interface FilterBarProps {
   categories: string[];
@@ -13,6 +12,7 @@ interface FilterBarProps {
   onLocationSelect: (location: string) => void;
   onLocationClear: () => void;
   templateMode?: boolean;
+  onCurrentLocation: () => void;
 }
 
 const categoryLabels = {
@@ -32,8 +32,19 @@ export const FilterBar: React.FC<FilterBarProps> = ({
   selectedLocation,
   onLocationSelect,
   onLocationClear,
-  templateMode = false
+  templateMode = false,
+  onCurrentLocation
 }) => {
+  const [locationInput, setLocationInput] = React.useState('');
+
+  const handleLocationSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (locationInput.trim()) {
+      onLocationSelect(locationInput.trim());
+      setLocationInput('');
+    }
+  };
+
   return (
     <div className="bg-white rounded-xl shadow-md p-6 mb-6">
       <div className="flex flex-wrap items-center gap-4">
@@ -76,12 +87,47 @@ export const FilterBar: React.FC<FilterBarProps> = ({
 
         <div className="w-px h-6 bg-gray-300" />
         
-        {/* Location Filter */}
-        <LocationFilter
-          onLocationSelect={onLocationSelect}
-          selectedLocation={selectedLocation}
-          onClear={onLocationClear}
-        />
+        {/* Location Filter Inline */}
+        <div className="flex items-center space-x-2">
+          {selectedLocation ? (
+            <div className="flex items-center bg-blue-100 text-blue-800 px-3 py-2 rounded-lg border border-blue-200">
+              <MapPin className="w-4 h-4 mr-1" />
+              <span className="text-sm font-medium">Near {selectedLocation}</span>
+              <button
+                onClick={onLocationClear}
+                className="ml-2 p-1 hover:bg-blue-200 rounded-full"
+              >
+                <X className="w-3 h-3" />
+              </button>
+            </div>
+          ) : (
+            <>
+              <button
+                onClick={onCurrentLocation}
+                className="inline-flex items-center px-3 py-2 bg-green-100 text-green-800 rounded-lg hover:bg-green-200 transition-colors border border-green-200"
+              >
+                <Navigation className="w-4 h-4 mr-1" />
+                <span className="text-sm font-medium">Current Location</span>
+              </button>
+              
+              <form onSubmit={handleLocationSubmit} className="flex">
+                <input
+                  type="text"
+                  value={locationInput}
+                  onChange={(e) => setLocationInput(e.target.value)}
+                  placeholder="Enter location..."
+                  className="border border-gray-300 rounded-l-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent w-40"
+                />
+                <button
+                  type="submit"
+                  className="bg-blue-500 text-white px-3 py-2 rounded-r-lg hover:bg-blue-600 transition-colors text-sm font-medium"
+                >
+                  Set
+                </button>
+              </form>
+            </>
+          )}
+        </div>
       </div>
     </div>
   );
