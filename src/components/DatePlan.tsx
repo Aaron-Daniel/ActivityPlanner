@@ -20,7 +20,11 @@ export const DatePlan: React.FC<DatePlanProps> = ({ selectedSpots, onRemove, onR
     e.dataTransfer.effectAllowed = 'move';
     e.dataTransfer.setData('text/html', e.currentTarget.outerHTML);
     if (e.currentTarget instanceof HTMLElement) {
-      e.currentTarget.style.opacity = '0.5';
+      e.currentTarget.style.opacity = '0.8';
+      e.currentTarget.style.transform = 'rotate(3deg) scale(1.05)';
+      e.currentTarget.style.boxShadow = '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)';
+      e.currentTarget.style.zIndex = '50';
+      e.currentTarget.style.cursor = 'grabbing';
     }
   };
 
@@ -29,6 +33,10 @@ export const DatePlan: React.FC<DatePlanProps> = ({ selectedSpots, onRemove, onR
     setDragOverIndex(null);
     if (e.currentTarget instanceof HTMLElement) {
       e.currentTarget.style.opacity = '1';
+      e.currentTarget.style.transform = '';
+      e.currentTarget.style.boxShadow = '';
+      e.currentTarget.style.zIndex = '';
+      e.currentTarget.style.cursor = 'move';
     }
   };
 
@@ -182,10 +190,10 @@ export const DatePlan: React.FC<DatePlanProps> = ({ selectedSpots, onRemove, onR
               onDrop={(e) => handleDrop(e, index)}
               className={`flex items-center p-4 rounded-lg transition-all duration-200 group cursor-move ${
                 draggedIndex === index 
-                  ? 'bg-blue-100 border-2 border-blue-300' 
+                  ? 'bg-blue-100 border-2 border-blue-300 shadow-xl' 
                   : dragOverIndex === index 
                     ? 'bg-blue-50 border-2 border-blue-200 border-dashed'
-                    : 'bg-gray-50 hover:bg-gray-100'
+                    : 'bg-gray-50 hover:bg-gray-100 hover:shadow-md'
               }`}
             >
               <div className="flex-shrink-0 w-8 h-8 bg-blue-500 text-white rounded-full flex items-center justify-center text-sm font-medium mr-4">
@@ -215,11 +223,6 @@ export const DatePlan: React.FC<DatePlanProps> = ({ selectedSpots, onRemove, onR
               </div>
               
               <div className="flex-shrink-0 flex items-center">
-                <div className="flex items-center mr-2 opacity-40 group-hover:opacity-100 transition-opacity">
-                  <div className="w-1 h-4 bg-gray-400 rounded-full mr-0.5"></div>
-                  <div className="w-1 h-4 bg-gray-400 rounded-full mr-0.5"></div>
-                  <div className="w-1 h-4 bg-gray-400 rounded-full"></div>
-                </div>
                 <button
                   onClick={() => onRemove(spot.id)}
                   className="w-6 h-6 text-gray-400 hover:text-red-500 transition-colors opacity-0 group-hover:opacity-100"
