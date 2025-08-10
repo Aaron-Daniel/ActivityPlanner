@@ -11,8 +11,21 @@ export const dateSpots: DateSpot[] = [
     priceLevel: 3,
     rating: 4.8,
     image: 'https://images.pexels.com/photos/67468/pexels-photo-67468.jpeg',
+    images: [
+      'https://images.pexels.com/photos/67468/pexels-photo-67468.jpeg',
+      'https://images.pexels.com/photos/1581384/pexels-photo-1581384.jpeg',
+      'https://images.pexels.com/photos/3184192/pexels-photo-3184192.jpeg'
+    ],
     estimatedTime: '1.5-2 hours',
-    neighborhood: 'West Hollywood'
+    neighborhood: 'West Hollywood',
+    details: {
+      cuisine: 'Farm-to-table American',
+      atmosphere: 'Romantic, intimate, garden setting',
+      highlights: ['Seasonal menu', 'Outdoor garden dining', 'Craft cocktails', 'Local ingredients'],
+      amenities: ['Outdoor seating', 'Full bar', 'Valet parking', 'Private dining'],
+      bestFor: ['Date nights', 'Special occasions', 'Business dinners'],
+      tips: 'Request garden seating for the most romantic experience'
+    }
   },
   {
     id: '2',
@@ -23,8 +36,21 @@ export const dateSpots: DateSpot[] = [
     priceLevel: 4,
     rating: 4.6,
     image: 'https://images.pexels.com/photos/941861/pexels-photo-941861.jpeg',
+    images: [
+      'https://images.pexels.com/photos/941861/pexels-photo-941861.jpeg',
+      'https://images.pexels.com/photos/1543750/pexels-photo-1543750.jpeg',
+      'https://images.pexels.com/photos/2253643/pexels-photo-2253643.jpeg'
+    ],
     estimatedTime: '2-3 hours',
-    neighborhood: 'Hollywood'
+    neighborhood: 'Hollywood',
+    details: {
+      cuisine: 'Modern American',
+      atmosphere: 'Upscale, panoramic city views',
+      highlights: ['360° city views', 'Craft cocktails', 'Sunset dining', 'Live music weekends'],
+      amenities: ['Rooftop terrace', 'Full bar', 'Lounge area', 'Event space'],
+      bestFor: ['Romantic dinners', 'Celebration meals', 'Impressive dates'],
+      tips: 'Book sunset reservations for the best views'
+    }
   },
   {
     id: '3',
@@ -35,8 +61,21 @@ export const dateSpots: DateSpot[] = [
     priceLevel: 2,
     rating: 4.4,
     image: 'https://images.pexels.com/photos/302899/pexels-photo-302899.jpeg',
+    images: [
+      'https://images.pexels.com/photos/302899/pexels-photo-302899.jpeg',
+      'https://images.pexels.com/photos/1833349/pexels-photo-1833349.jpeg',
+      'https://images.pexels.com/photos/6347890/pexels-photo-6347890.jpeg'
+    ],
     estimatedTime: '1-1.5 hours',
-    neighborhood: 'Venice'
+    neighborhood: 'Venice',
+    details: {
+      cuisine: 'Coffee & Pastries',
+      atmosphere: 'Cozy, artistic, bohemian',
+      highlights: ['Artisanal coffee', 'Local art displays', 'Homemade pastries', 'Free WiFi'],
+      amenities: ['Outdoor seating', 'Art gallery', 'Book exchange', 'Local music'],
+      bestFor: ['Casual dates', 'Morning meetings', 'Study sessions'],
+      tips: 'Try their signature lavender latte'
+    }
   },
   
   // Activities
@@ -49,8 +88,20 @@ export const dateSpots: DateSpot[] = [
     priceLevel: 1,
     rating: 4.7,
     image: 'https://images.pexels.com/photos/1154723/pexels-photo-1154723.jpeg',
+    images: [
+      'https://images.pexels.com/photos/1154723/pexels-photo-1154723.jpeg',
+      'https://images.pexels.com/photos/2371967/pexels-photo-2371967.jpeg',
+      'https://images.pexels.com/photos/1770809/pexels-photo-1770809.jpeg'
+    ],
     estimatedTime: '2-3 hours',
-    neighborhood: 'Brentwood'
+    neighborhood: 'Brentwood',
+    details: {
+      atmosphere: 'Cultural, sophisticated, educational',
+      highlights: ['World-class art collection', 'Architecture tours', 'Garden walks', 'Free admission'],
+      amenities: ['Free parking', 'Audio guides', 'Café', 'Gift shop', 'Wheelchair accessible'],
+      bestFor: ['Culture enthusiasts', 'Educational dates', 'Photography'],
+      tips: 'Free admission but advance reservations required'
+    }
   },
   {
     id: '5',
@@ -61,8 +112,20 @@ export const dateSpots: DateSpot[] = [
     priceLevel: 2,
     rating: 4.5,
     image: 'https://images.pexels.com/photos/355887/pexels-photo-355887.jpeg',
+    images: [
+      'https://images.pexels.com/photos/355887/pexels-photo-355887.jpeg',
+      'https://images.pexels.com/photos/2422915/pexels-photo-2422915.jpeg',
+      'https://images.pexels.com/photos/1450353/pexels-photo-1450353.jpeg'
+    ],
     estimatedTime: '2-3 hours',
-    neighborhood: 'Santa Monica'
+    neighborhood: 'Santa Monica',
+    details: {
+      atmosphere: 'Fun, energetic, beachside',
+      highlights: ['Ferris wheel', 'Arcade games', 'Street performers', 'Ocean views'],
+      amenities: ['Restaurants', 'Parking garage', 'Bike rentals', 'Beach access'],
+      bestFor: ['Fun dates', 'Families', 'Tourist experience'],
+      tips: 'Best visited during sunset for magical lighting'
+    }
   },
   {
     id: '6',
@@ -73,8 +136,20 @@ export const dateSpots: DateSpot[] = [
     priceLevel: 2,
     rating: 4.3,
     image: 'https://images.pexels.com/photos/4792065/pexels-photo-4792065.jpeg',
+    images: [
+      'https://images.pexels.com/photos/4792065/pexels-photo-4792065.jpeg',
+      'https://images.pexels.com/photos/4792901/pexels-photo-4792901.jpeg',
+      'https://images.pexels.com/photos/7991579/pexels-photo-7991579.jpeg'
+    ],
     estimatedTime: '2-3 hours',
-    neighborhood: 'Hollywood'
+    neighborhood: 'Hollywood',
+    details: {
+      atmosphere: 'Modern, upscale, entertaining',
+      highlights: ['Boutique bowling', 'Craft cocktails', 'Gourmet food', 'Live DJ'],
+      amenities: ['Full bar', 'Restaurant', 'Private lanes', 'Event hosting'],
+      bestFor: ['Group dates', 'Birthday parties', 'Corporate events'],
+      tips: 'Make reservations, especially for weekend evenings'
+    }
   },
 
   // Bars
@@ -87,8 +162,20 @@ export const dateSpots: DateSpot[] = [
     priceLevel: 3,
     rating: 4.6,
     image: 'https://images.pexels.com/photos/274192/pexels-photo-274192.jpeg',
+    images: [
+      'https://images.pexels.com/photos/274192/pexels-photo-274192.jpeg',
+      'https://images.pexels.com/photos/1089932/pexels-photo-1089932.jpeg',
+      'https://images.pexels.com/photos/1850595/pexels-photo-1850595.jpeg'
+    ],
     estimatedTime: '2-3 hours',
-    neighborhood: 'Hollywood'
+    neighborhood: 'Hollywood',
+    details: {
+      atmosphere: 'Historic, glamorous, sophisticated',
+      highlights: ['Historic venue', 'Classic cocktails', 'Live jazz', 'Celebrity spotting'],
+      amenities: ['Full bar', 'Live entertainment', 'Cigar lounge', 'Valet parking'],
+      bestFor: ['Special occasions', 'Impressive dates', 'History buffs'],
+      tips: 'Dress code enforced - smart casual minimum'
+    }
   },
   {
     id: '8',
@@ -99,8 +186,20 @@ export const dateSpots: DateSpot[] = [
     priceLevel: 3,
     rating: 4.4,
     image: 'https://images.pexels.com/photos/1089932/pexels-photo-1089932.jpeg',
+    images: [
+      'https://images.pexels.com/photos/1089932/pexels-photo-1089932.jpeg',
+      'https://images.pexels.com/photos/2253643/pexels-photo-2253643.jpeg',
+      'https://images.pexels.com/photos/941861/pexels-photo-941861.jpeg'
+    ],
     estimatedTime: '1.5-2 hours',
-    neighborhood: 'Downtown LA'
+    neighborhood: 'Downtown LA',
+    details: {
+      atmosphere: 'Trendy, elevated, city views',
+      highlights: ['Rooftop pool', 'City skyline views', 'Craft cocktails', 'DJ sets'],
+      amenities: ['Rooftop pool', 'Lounge seating', 'Full bar', 'Event space'],
+      bestFor: ['Night out', 'Pool parties', 'Summer dates'],
+      tips: 'Pool access may require hotel guest status or special events'
+    }
   },
   {
     id: '9',
@@ -111,8 +210,20 @@ export const dateSpots: DateSpot[] = [
     priceLevel: 3,
     rating: 4.5,
     image: 'https://images.pexels.com/photos/1850595/pexels-photo-1850595.jpeg',
+    images: [
+      'https://images.pexels.com/photos/1850595/pexels-photo-1850595.jpeg',
+      'https://images.pexels.com/photos/3184192/pexels-photo-3184192.jpeg',
+      'https://images.pexels.com/photos/6347890/pexels-photo-6347890.jpeg'
+    ],
     estimatedTime: '1.5-2.5 hours',
-    neighborhood: 'Venice'
+    neighborhood: 'Venice',
+    details: {
+      atmosphere: 'Casual, artisanal, bohemian',
+      highlights: ['Natural wines', 'Small plates', 'Local art', 'Relaxed vibe'],
+      amenities: ['Wine tastings', 'Small plates menu', 'Outdoor seating', 'Art displays'],
+      bestFor: ['Wine lovers', 'Casual dates', 'Neighborhood hangout'],
+      tips: 'Ask about their natural wine selection - it changes weekly'
+    }
   },
 
   // Entertainment
@@ -125,8 +236,20 @@ export const dateSpots: DateSpot[] = [
     priceLevel: 2,
     rating: 4.8,
     image: 'https://images.pexels.com/photos/713149/pexels-photo-713149.jpeg',
+    images: [
+      'https://images.pexels.com/photos/713149/pexels-photo-713149.jpeg',
+      'https://images.pexels.com/photos/7991579/pexels-photo-7991579.jpeg',
+      'https://images.pexels.com/photos/2422915/pexels-photo-2422915.jpeg'
+    ],
     estimatedTime: '2.5-3 hours',
-    neighborhood: 'Hollywood'
+    neighborhood: 'Hollywood',
+    details: {
+      atmosphere: 'Historic, cinematic, iconic',
+      highlights: ['Historic venue', 'IMAX screenings', 'Celebrity handprints', 'Movie premieres'],
+      amenities: ['IMAX theater', 'Concessions', 'Gift shop', 'Tourist attraction'],
+      bestFor: ['Movie dates', 'Tourist experience', 'Film enthusiasts'],
+      tips: 'Check for special screenings and events - often has premieres'
+    }
   },
   {
     id: '11',
@@ -137,8 +260,20 @@ export const dateSpots: DateSpot[] = [
     priceLevel: 2,
     rating: 4.2,
     image: 'https://images.pexels.com/photos/7991579/pexels-photo-7991579.jpeg',
+    images: [
+      'https://images.pexels.com/photos/7991579/pexels-photo-7991579.jpeg',
+      'https://images.pexels.com/photos/713149/pexels-photo-713149.jpeg',
+      'https://images.pexels.com/photos/2422915/pexels-photo-2422915.jpeg'
+    ],
     estimatedTime: '2-3 hours',
-    neighborhood: 'Beverly Hills'
+    neighborhood: 'Beverly Hills',
+    details: {
+      atmosphere: 'Upscale, comfortable, premium',
+      highlights: ['Luxury seating', 'Gourmet concessions', 'Latest releases', 'Premium sound'],
+      amenities: ['Reclining seats', 'In-seat service', 'Premium concessions', 'Reserved seating'],
+      bestFor: ['Comfortable movie dates', 'Luxury experience', 'New releases'],
+      tips: 'Book reserved seating in advance for popular movies'
+    }
   },
   {
     id: '12',
@@ -149,8 +284,20 @@ export const dateSpots: DateSpot[] = [
     priceLevel: 2,
     rating: 4.7,
     image: 'https://images.pexels.com/photos/1174732/pexels-photo-1174732.jpeg',
+    images: [
+      'https://images.pexels.com/photos/1174732/pexels-photo-1174732.jpeg',
+      'https://images.pexels.com/photos/355887/pexels-photo-355887.jpeg',
+      'https://images.pexels.com/photos/1450353/pexels-photo-1450353.jpeg'
+    ],
     estimatedTime: '1-2 hours',
-    neighborhood: 'Marina del Rey'
+    neighborhood: 'Marina del Rey',
+    details: {
+      atmosphere: 'Nautical, scenic, relaxing',
+      highlights: ['Largest man-made marina', 'Waterfront dining', 'Yacht watching', 'Sunset views'],
+      amenities: ['Restaurants', 'Boat rentals', 'Walking paths', 'Parking'],
+      bestFor: ['Romantic walks', 'Sunset viewing', 'Nautical enthusiasts'],
+      tips: 'Perfect spot for sunset viewing - bring a camera'
+    }
   }
 ];
 

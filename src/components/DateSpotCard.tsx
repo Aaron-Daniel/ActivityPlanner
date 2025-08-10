@@ -1,5 +1,5 @@
 import React from 'react';
-import { Star, Clock, DollarSign, MapPin } from 'lucide-react';
+import { Star, Clock, DollarSign, MapPin, Info } from 'lucide-react';
 import { DateSpot } from '../types';
 
 interface DateSpotCardProps {
@@ -7,6 +7,7 @@ interface DateSpotCardProps {
   isSelected: boolean;
   onSelect: (dateSpot: DateSpot) => void;
   distance?: number;
+  onShowDetails: (dateSpot: DateSpot) => void;
 }
 
 const categoryColors = {
@@ -27,7 +28,8 @@ export const DateSpotCard: React.FC<DateSpotCardProps> = ({
   dateSpot, 
   isSelected, 
   onSelect,
-  distance 
+  distance,
+  onShowDetails
 }) => {
   const getPriceLevelSymbol = (level: number) => {
     return '$'.repeat(level);
@@ -96,9 +98,21 @@ export const DateSpotCard: React.FC<DateSpotCardProps> = ({
             </div>
           </div>
           
-          <div className="flex items-center text-xs text-gray-500">
-            <Clock className="w-3 h-3 mr-1" />
-            {dateSpot.estimatedTime}
+          <div className="flex items-center space-x-2">
+            <div className="flex items-center text-xs text-gray-500">
+              <Clock className="w-3 h-3 mr-1" />
+              {dateSpot.estimatedTime}
+            </div>
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                onShowDetails(dateSpot);
+              }}
+              className="p-1 hover:bg-gray-100 rounded-full transition-colors opacity-0 group-hover:opacity-100"
+              title="View details"
+            >
+              <Info className="w-4 h-4 text-gray-500 hover:text-blue-500" />
+            </button>
           </div>
         </div>
       </div>

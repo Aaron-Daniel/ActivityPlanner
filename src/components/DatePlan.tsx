@@ -1,6 +1,6 @@
 import React from 'react';
 import { DateSpot, DateTemplate } from '../types';
-import { Calendar, Clock, MapPin, Car, Navigation, X } from 'lucide-react';
+import { Calendar, Clock, MapPin, Car, Navigation, X, Info } from 'lucide-react';
 import { getDistance } from '../data/mockData';
 
 interface DatePlanProps {
@@ -10,6 +10,7 @@ interface DatePlanProps {
   activeTemplate?: DateTemplate | null;
   templateProgress: number;
   onCloseTemplate?: () => void;
+  onShowDetails: (dateSpot: DateSpot) => void;
 }
 
 const categoryColors = {
@@ -26,7 +27,7 @@ const categoryLabels = {
   entertainment: 'Entertainment'
 };
 
-export const DatePlan: React.FC<DatePlanProps> = ({ selectedSpots, onRemove, onReorder, activeTemplate, templateProgress, onCloseTemplate }) => {
+export const DatePlan: React.FC<DatePlanProps> = ({ selectedSpots, onRemove, onReorder, activeTemplate, templateProgress, onCloseTemplate, onShowDetails }) => {
   const [draggedIndex, setDraggedIndex] = React.useState<number | null>(null);
   const [dragOverIndex, setDragOverIndex] = React.useState<number | null>(null);
 
@@ -259,8 +260,19 @@ export const DatePlan: React.FC<DatePlanProps> = ({ selectedSpots, onRemove, onR
               
               <div className="flex-shrink-0 flex items-center">
                 <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onShowDetails(spot);
+                  }}
+                  className="w-6 h-6 text-gray-400 hover:text-blue-500 transition-colors opacity-0 group-hover:opacity-100 mr-2"
+                  title="View details"
+                >
+                  <Info className="w-4 h-4" />
+                </button>
+                <button
                   onClick={() => onRemove(spot.id)}
                   className="w-6 h-6 text-gray-400 hover:text-red-500 transition-colors opacity-0 group-hover:opacity-100"
+                  title="Remove from plan"
                 >
                   <X className="w-4 h-4" />
                 </button>

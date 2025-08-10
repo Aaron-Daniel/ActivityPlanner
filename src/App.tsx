@@ -5,6 +5,7 @@ import { DateSpotCard } from './components/DateSpotCard';
 import { DatePlan } from './components/DatePlan';
 import { FilterBar } from './components/FilterBar';
 import { DateTemplateModal } from './components/DateTemplateModal';
+import { DateSpotDetailsModal } from './components/DateSpotDetailsModal';
 import { Heart, Calendar, Sparkles } from 'lucide-react';
 
 function App() {
@@ -16,6 +17,8 @@ function App() {
   const [activeTemplate, setActiveTemplate] = useState<DateTemplate | null>(null);
   const [currentTemplateStep, setCurrentTemplateStep] = useState(0);
   const [isGettingLocation, setIsGettingLocation] = useState(false);
+  const [selectedSpotForDetails, setSelectedSpotForDetails] = useState<DateSpot | null>(null);
+  const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
 
   const categories = ['all', 'restaurant', 'activity', 'bar', 'entertainment'];
 
@@ -144,6 +147,18 @@ function App() {
     setSelectedCategory('all');
   };
 
+  // Handle showing spot details
+  const handleShowDetails = (spot: DateSpot) => {
+    setSelectedSpotForDetails(spot);
+    setIsDetailsModalOpen(true);
+  };
+
+  // Handle closing spot details
+  const handleCloseDetails = () => {
+    setIsDetailsModalOpen(false);
+    setSelectedSpotForDetails(null);
+  };
+
   // Filter and sort spots
   const filteredAndSortedSpots = useMemo(() => {
     let filtered = [...dateSpots];
@@ -234,6 +249,7 @@ function App() {
                   isSelected={selectedSpots.some(s => s.id === spot.id)}
                   onSelect={handleSpotSelect}
                   distance={selectedLocation ? spot.distance : undefined}
+                  onShowDetails={handleShowDetails}
                 />
               ))}
             </div>
@@ -261,6 +277,7 @@ function App() {
                 activeTemplate={activeTemplate}
                 templateProgress={activeTemplate ? selectedSpots.length / activeTemplate.categories.length : 0}
                 onCloseTemplate={handleCloseTemplate}
+                onShowDetails={handleShowDetails}
               />
             </div>
           </div>
@@ -271,6 +288,12 @@ function App() {
         isOpen={isTemplateModalOpen}
         onClose={() => setIsTemplateModalOpen(false)}
         onSelectTemplate={handleSelectTemplate}
+      />
+      
+      <DateSpotDetailsModal
+        dateSpot={selectedSpotForDetails}
+        isOpen={isDetailsModalOpen}
+        onClose={handleCloseDetails}
       />
     </div>
   );
