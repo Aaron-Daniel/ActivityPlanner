@@ -168,15 +168,18 @@ function App() {
       filtered = filtered.filter(spot => spot.category === selectedCategory);
     }
 
-    // Calculate distances if filtering by location
+    // Calculate distances for all spots
     let spotsWithDistance = filtered.map(spot => ({
       ...spot,
-      distance: selectedLocation ? getDistance(selectedLocation, spot.neighborhood) : 0
+      distanceFromLocation: selectedLocation ? getDistance(selectedLocation, spot.neighborhood) : 0,
+      distanceFromLast: selectedSpots.length > 0 
+        ? getDistance(selectedSpots[selectedSpots.length - 1].neighborhood, spot.neighborhood)
+        : 0
     }));
 
-    // If location filter is active, sort by distance first
-    if (selectedLocation && sortBy !== 'distance') {
-      spotsWithDistance = spotsWithDistance.filter(spot => spot.distance < 20); // Only show spots within 20 miles
+    // If location filter is active, filter by reasonable distance
+    if (selectedLocation && sortBy !== 'distance-from-me') {
+      spotsWithDistance = spotsWithDistance.filter(spot => spot.distanceFromLocation < 20); // Only show spots within 20 miles
     }
 
     // Sort
@@ -188,15 +191,17 @@ function App() {
           return a.priceLevel - b.priceLevel;
         case 'price-high':
           return b.priceLevel - a.priceLevel;
-        case 'distance':
-          return a.distance - b.distance;
+        case 'distance-from-me':
+          return a.distanceFromLocation - b.distanceFromLocation;
+        case 'distance-from-last':
+          return a.distanceFromLast - b.distanceFromLast;
         default:
           return 0;
       }
     });
 
     return spotsWithDistance;
-  }, [selectedCategory, sortBy, selectedLocation]);
+  }, [selectedCategory, sortBy, selectedLocation, selectedSpots]);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
@@ -238,6 +243,7 @@ function App() {
               onLocationClear={handleLocationClear}
               templateMode={!!activeTemplate}
               onCurrentLocation={handleCurrentLocation}
+              hasSelectedSpots={selectedSpots.length > 0}
             />
 
             {/* Spots Grid */}
@@ -248,7 +254,7 @@ function App() {
                   dateSpot={spot}
                   isSelected={selectedSpots.some(s => s.id === spot.id)}
                   onSelect={handleSpotSelect}
-                  distance={selectedLocation ? spot.distance : undefined}
+                  distance={selectedLocation ? spot.distanceFromLocation : undefined}
                   onShowDetails={handleShowDetails}
                 />
               ))}

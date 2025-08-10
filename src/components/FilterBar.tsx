@@ -13,6 +13,7 @@ interface FilterBarProps {
   onLocationClear: () => void;
   templateMode?: boolean;
   onCurrentLocation: () => void;
+  hasSelectedSpots?: boolean;
 }
 
 const categoryLabels = {
@@ -33,7 +34,8 @@ export const FilterBar: React.FC<FilterBarProps> = ({
   onLocationSelect,
   onLocationClear,
   templateMode = false,
-  onCurrentLocation
+  onCurrentLocation,
+  hasSelectedSpots = false
 }) => {
   const [locationInput, setLocationInput] = React.useState('');
 
@@ -82,7 +84,8 @@ export const FilterBar: React.FC<FilterBarProps> = ({
           <option value="rating">Sort by Rating</option>
           <option value="price-low">Price: Low to High</option>
           <option value="price-high">Price: High to Low</option>
-          {selectedLocation && <option value="distance">Distance</option>}
+          {selectedLocation && <option value="distance-from-me">Distance from Location</option>}
+          {hasSelectedSpots && <option value="distance-from-last">Distance from Last Stop</option>}
         </select>
 
         <div className="w-px h-6 bg-gray-300" />
