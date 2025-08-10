@@ -285,9 +285,7 @@ export const DatePlan: React.FC<DatePlanProps> = ({ selectedSpots, onRemove, onR
                         </div>
                         <div className="w-px h-4 bg-gray-300" />
                         <div className="flex items-center text-gray-600">
-                          <div className="w-4 h-4 mr-1 flex items-center justify-center">
-                            <div className="w-2 h-2 bg-green-500 rounded-full" />
-                          </div>
+                          <span className="text-sm mr-1">🚶</span>
                           <span>{travelTimes.walking}</span>
                         </div>
                         <div className="flex items-center text-gray-600">
