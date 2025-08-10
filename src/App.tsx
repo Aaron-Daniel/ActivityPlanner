@@ -28,6 +28,9 @@ function App() {
       } else {
         const newSelection = [...prev, spot];
         
+        // Dynamically set location filter to the selected spot's neighborhood
+        setSelectedLocation(spot.neighborhood);
+        
         // If using template mode, advance to next step
         if (activeTemplate && currentTemplateStep < activeTemplate.categories.length - 1) {
           setCurrentTemplateStep(prev => prev + 1);
@@ -48,7 +51,18 @@ function App() {
 
   // Remove spot from plan
   const handleRemoveSpot = (spotId: string) => {
-    setSelectedSpots(prev => prev.filter(spot => spot.id !== spotId));
+    setSelectedSpots(prev => {
+      const newSpots = prev.filter(spot => spot.id !== spotId);
+      
+      // Update location filter based on remaining spots
+      if (newSpots.length > 0) {
+        // Set to the last remaining spot's neighborhood
+        setSelectedLocation(newSpots[newSpots.length - 1].neighborhood);
+      }
+      // If no spots remain, keep the current location filter
+      
+      return newSpots;
+    });
     
     // If in template mode and removing a spot, adjust step
     if (activeTemplate) {
