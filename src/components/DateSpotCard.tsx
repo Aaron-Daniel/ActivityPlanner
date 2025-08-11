@@ -108,10 +108,11 @@ export const DateSpotCard: React.FC<DateSpotCardProps> = ({
                 e.stopPropagation();
                 onShowDetails(dateSpot);
               }}
-              className="p-2 hover:bg-gray-100 rounded-full transition-all duration-200 opacity-60 group-hover:opacity-100 hover:scale-110"
+             className="inline-flex items-center px-3 py-2 bg-blue-500 text-white text-sm font-medium rounded-lg hover:bg-blue-600 transition-all duration-200 opacity-90 group-hover:opacity-100 hover:scale-105 shadow-sm hover:shadow-md"
               title="View details"
             >
-              <Info className="w-4 h-4 text-blue-500" />
+             <Info className="w-4 h-4 mr-1" />
+             Details
             </button>
           </div>
         </div>

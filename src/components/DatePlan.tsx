@@ -264,10 +264,11 @@ export const DatePlan: React.FC<DatePlanProps> = ({ selectedSpots, onRemove, onR
                     e.stopPropagation();
                     onShowDetails(spot);
                   }}
-                  className="w-6 h-6 text-gray-400 hover:text-blue-500 transition-colors opacity-0 group-hover:opacity-100 mr-2"
+                 className="inline-flex items-center px-2 py-1 bg-blue-500 text-white text-xs font-medium rounded-md hover:bg-blue-600 transition-all duration-200 opacity-0 group-hover:opacity-100 mr-2"
                   title="View details"
                 >
-                  <Info className="w-4 h-4" />
+                 <Info className="w-3 h-3 mr-1" />
+                 Details
                 </button>
                 <button
                   onClick={() => onRemove(spot.id)}
