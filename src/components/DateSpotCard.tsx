@@ -39,7 +39,7 @@ export const DateSpotCard: React.FC<DateSpotCardProps> = ({
     <div 
       className={`bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer transform hover:-translate-y-1 ${
         isSelected ? 'ring-2 ring-blue-500 bg-blue-50' : ''
-      }`}
+      } group`}
       onClick={() => onSelect(dateSpot)}
     >
       <div className="relative">
@@ -98,7 +98,7 @@ export const DateSpotCard: React.FC<DateSpotCardProps> = ({
             </div>
           </div>
           
-          <div className="flex items-center space-x-2">
+          <div className="flex items-center space-x-1">
             <div className="flex items-center text-xs text-gray-500">
               <Clock className="w-3 h-3 mr-1" />
               {dateSpot.estimatedTime}
@@ -108,10 +108,10 @@ export const DateSpotCard: React.FC<DateSpotCardProps> = ({
                 e.stopPropagation();
                 onShowDetails(dateSpot);
               }}
-              className="p-1 hover:bg-gray-100 rounded-full transition-colors opacity-0 group-hover:opacity-100"
+              className="p-2 hover:bg-gray-100 rounded-full transition-all duration-200 opacity-60 group-hover:opacity-100 hover:scale-110"
               title="View details"
             >
-              <Info className="w-4 h-4 text-gray-500 hover:text-blue-500" />
+              <Info className="w-4 h-4 text-blue-500" />
             </button>
           </div>
         </div>
