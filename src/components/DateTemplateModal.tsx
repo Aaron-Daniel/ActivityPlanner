@@ -49,45 +49,45 @@ export const DateTemplateModal: React.FC<DateTemplateModalProps> = ({
         </div>
 
         <div className="p-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {dateTemplates.map((template) => (
               <div
                 key={template.id}
                 onClick={() => onSelectTemplate(template)}
-                className="bg-gray-50 rounded-xl p-6 hover:bg-gray-100 cursor-pointer transition-all duration-200 hover:shadow-md group"
+                className="bg-gray-50 rounded-lg p-4 hover:bg-gray-100 cursor-pointer transition-all duration-200 hover:shadow-md group"
               >
-                <div className="flex items-start justify-between mb-4">
-                  <div className="text-3xl mb-2">{template.icon}</div>
+                <div className="flex items-start justify-between mb-3">
+                  <div className="text-2xl">{template.icon}</div>
                   <div className="flex items-center text-sm text-gray-500">
                     <Clock className="w-4 h-4 mr-1" />
                     {template.duration}
                   </div>
                 </div>
                 
-                <h3 className="text-lg font-semibold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors">
+                <h3 className="text-base font-semibold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors">
                   {template.name}
                 </h3>
                 
-                <p className="text-gray-600 text-sm mb-4">
+                <p className="text-gray-600 text-sm mb-3">
                   {template.description}
                 </p>
                 
-                <div className="flex items-center flex-wrap gap-2">
+                <div className="flex items-center flex-wrap gap-1.5 mb-2">
                   {template.categories.map((category, index) => (
                     <React.Fragment key={`${category}-${index}`}>
-                      <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium ${
+                      <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${
                         categoryColors[category as keyof typeof categoryColors]
                       }`}>
                         {categoryLabels[category as keyof typeof categoryLabels]}
                       </span>
                       {index < template.categories.length - 1 && (
-                        <ArrowRight className="w-3 h-3 text-gray-400" />
+                        <ArrowRight className="w-2.5 h-2.5 text-gray-400" />
                       )}
                     </React.Fragment>
                   ))}
                 </div>
                 
-                <div className="mt-4 text-sm text-blue-600 font-medium opacity-0 group-hover:opacity-100 transition-opacity">
+                <div className="text-sm text-blue-600 font-medium opacity-0 group-hover:opacity-100 transition-opacity">
                   Select this template →
                 </div>
               </div>
