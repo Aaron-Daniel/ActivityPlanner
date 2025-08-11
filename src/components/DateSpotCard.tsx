@@ -82,7 +82,7 @@ export const DateSpotCard: React.FC<DateSpotCardProps> = ({
         </div>
         
         <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-3">
+          <div className="flex items-center space-x-3 flex-1">
             <div className="flex items-center">
               <Star className="w-4 h-4 text-yellow-400 mr-1" />
               <span className="text-sm font-medium text-gray-700">
@@ -96,13 +96,14 @@ export const DateSpotCard: React.FC<DateSpotCardProps> = ({
                 {getPriceLevelSymbol(dateSpot.priceLevel)}
               </span>
             </div>
-          </div>
-          
-          <div className="flex items-center space-x-1">
+            
             <div className="flex items-center text-xs text-gray-500">
               <Clock className="w-3 h-3 mr-1" />
               {dateSpot.estimatedTime}
             </div>
+          </div>
+          
+          <div className="flex-shrink-0">
             <button
               onClick={(e) => {
                 e.stopPropagation();

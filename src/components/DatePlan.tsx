@@ -219,7 +219,7 @@ export const DatePlan: React.FC<DatePlanProps> = ({ selectedSpots, onRemove, onR
               onDragOver={(e) => handleDragOver(e, index)}
               onDragLeave={handleDragLeave}
               onDrop={(e) => handleDrop(e, index)}
-              className={`flex items-center p-4 rounded-lg transition-all duration-200 group cursor-move ${
+              className={`relative p-4 rounded-lg transition-all duration-200 group cursor-move ${
                 draggedIndex === index 
                   ? 'bg-blue-100 border-2 border-blue-300 shadow-xl' 
                   : dragOverIndex === index 
@@ -227,57 +227,60 @@ export const DatePlan: React.FC<DatePlanProps> = ({ selectedSpots, onRemove, onR
                     : 'bg-gray-50 hover:bg-gray-100 hover:shadow-md'
               }`}
             >
-              <div className="flex-shrink-0 w-8 h-8 bg-blue-500 text-white rounded-full flex items-center justify-center text-sm font-medium mr-4">
+              {/* Remove button - top right, always visible */}
+              <button
+                onClick={() => onRemove(spot.id)}
+                className="absolute top-3 right-3 w-6 h-6 text-red-400 hover:text-red-600 hover:bg-red-50 rounded-full transition-colors flex items-center justify-center"
+                title="Remove from plan"
+              >
+                <X className="w-4 h-4" />
+              </button>
+              
+              <div className="flex items-start">
+                <div className="flex-shrink-0 w-8 h-8 bg-blue-500 text-white rounded-full flex items-center justify-center text-sm font-medium mr-4">
                 {index + 1}
+                </div>
+              
+                {/* Thumbnail */}
+                <div className="flex-shrink-0 mr-4">
+                  <img 
+                    src={spot.image} 
+                    alt={spot.name}
+                    className="w-16 h-16 rounded-lg object-cover"
+                  />
+                </div>
+                
+                <div className="flex-1 min-w-0 pr-8"> {/* Added right padding to avoid overlap with remove button */}
+                  <h3 className="font-medium text-gray-900 truncate">
+                    {spot.name}
+                  </h3>
+                  <div className="flex items-center mt-1 mb-2">
+                    <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium border ${categoryColors[spot.category]}`}>
+                      {categoryLabels[spot.category]}
+                    </span>
+                  </div>
+                  <div className="flex items-center text-sm text-gray-500 mt-1">
+                    <MapPin className="w-3 h-3 mr-1" />
+                    <span className="truncate">{spot.neighborhood}</span>
+                  </div>
+                  <div className="text-xs text-gray-500 mt-1">
+                    {spot.estimatedTime}
+                  </div>
+                </div>
               </div>
               
-              {/* Thumbnail */}
-              <div className="flex-shrink-0 mr-4">
-                <img 
-                  src={spot.image} 
-                  alt={spot.name}
-                  className="w-16 h-16 rounded-lg object-cover"
-                />
-              </div>
-              
-              <div className="flex-1 min-w-0">
-                <h3 className="font-medium text-gray-900 truncate">
-                  {spot.name}
-                </h3>
-                <div className="flex items-center mt-1 mb-2">
-                  <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium border ${categoryColors[spot.category]}`}>
-                    {categoryLabels[spot.category]}
-                  </span>
-                </div>
-                <div className="flex items-center text-sm text-gray-500 mt-1">
-                  <MapPin className="w-3 h-3 mr-1" />
-                  <span className="truncate">{spot.neighborhood}</span>
-                </div>
-                <div className="text-xs text-gray-500 mt-1">
-                  {spot.estimatedTime}
-                </div>
-              </div>
-              
-              <div className="flex-shrink-0 flex items-center">
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    onShowDetails(spot);
-                  }}
-                 className="inline-flex items-center px-2 py-1 bg-blue-500 text-white text-xs font-medium rounded-md hover:bg-blue-600 transition-all duration-200 opacity-0 group-hover:opacity-100 mr-2"
-                  title="View details"
-                >
-                 <Info className="w-3 h-3 mr-1" />
-                 Details
-                </button>
-                <button
-                  onClick={() => onRemove(spot.id)}
-                  className="w-6 h-6 text-gray-400 hover:text-red-500 transition-colors opacity-0 group-hover:opacity-100"
-                  title="Remove from plan"
-                >
-                  <X className="w-4 h-4" />
-                </button>
-              </div>
+              {/* Details button - bottom right */}
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onShowDetails(spot);
+                }}
+                className="absolute bottom-3 right-3 inline-flex items-center px-2 py-1 bg-blue-500 text-white text-xs font-medium rounded-md hover:bg-blue-600 transition-all duration-200"
+                title="View details"
+              >
+                <Info className="w-3 h-3 mr-1" />
+                Details
+              </button>
             </div>
 
             {/* Travel Information Between Spots */}
